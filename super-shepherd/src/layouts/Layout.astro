@@ -1,0 +1,69 @@
+---
+import "../styles/global.css";
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { title, description } = Astro.props;
+
+const metaTitle = title || t('seo.title');
+const metaDescription = description || t('seo.p1');
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="MulchCalc" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Primary Meta Tags -->
+		<title>{metaTitle}</title>
+		<meta name="title" content={metaTitle} />
+		<meta name="description" content={metaDescription} />
+		<meta name="keywords" content="mulch calculator, lowes mulch calculator, mulch calculator lowes, home depot mulch calculator, mulch calculator bags, mulch calculator yards, mulch calculator cubic yards, mulch calculator square feet, rubber mulch calculator, bark mulch calculator, how much mulch calculator, playground mulch calculator, landscape mulch calculator, circle mulch calculator, rock mulch calculator" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={metaTitle} />
+		<meta property="og:description" content={metaDescription} />
+		<meta property="og:image" content="/apple-touch-icon.png" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={metaTitle} />
+		<meta property="twitter:description" content={metaDescription} />
+		<meta property="twitter:image" content="/apple-touch-icon.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+		<script is:inline>
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				// Default to light mode
+				return 'light';
+			})();
+		
+			if (theme === 'light') {
+				document.documentElement.classList.remove('dark');
+			} else {
+				document.documentElement.classList.add('dark');
+			}
+		</script>
+	</head>
+	<body class="antialiased bg-canvas text-ink">
+		<slot />
+	</body>
+</html>

@@ -1,0 +1,50 @@
+---
+import { useTranslations } from '../i18n/utils';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const homePath = lang === 'en' ? '/' : `/${lang}/`;
+---
+
+<footer class="bg-canvas border-t border-hairline pt-24 pb-12 px-6">
+  <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 pb-16 border-b border-hairline">
+    <div class="col-span-2 space-y-6">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 bg-primary rounded-sm flex items-center justify-center">
+          <span class="text-on-primary font-bold text-sm">M</span>
+        </div>
+        <span class="body-md-strong tracking-tighter">mulchcalculator1.com</span>
+      </div>
+      <p class="body-sm text-mute max-w-xs">
+        {t('footer.description')}
+      </p>
+    </div>
+    
+    <div class="space-y-4">
+      <h4 class="caption-mono text-ink">{t('footer.product')}</h4>
+      <ul class="space-y-2">
+        <li><a href={`${homePath}#calculator`} class="body-sm text-body hover:text-link transition-colors">{t('nav.calculator')}</a></li>
+        <li><a href={`${homePath}#faq`} class="body-sm text-body hover:text-link transition-colors">{t('nav.faq')}</a></li>
+        <li><a href={`${homePath}about-us`} class="body-sm text-body hover:text-link transition-colors">{t('footer.about')}</a></li>
+        <li><a href={`${homePath}contact-us`} class="body-sm text-body hover:text-link transition-colors">{t('footer.contact')}</a></li>
+      </ul>
+    </div>
+
+    <div class="space-y-4">
+      <h4 class="caption-mono text-ink">{t('footer.legal')}</h4>
+      <ul class="space-y-2">
+        <li><a href={`${homePath}privacy-policy`} class="body-sm text-body hover:text-link transition-colors">{t('footer.privacy')}</a></li>
+        <li><a href={`${homePath}terms-of-service`} class="body-sm text-body hover:text-link transition-colors">{t('footer.terms')}</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="max-w-5xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    <span class="caption text-mute">{t('footer.rights')}</span>
+    <div class="flex items-center gap-6">
+      <a href={`${homePath}privacy-policy`} class="caption text-mute hover:text-ink">{t('footer.privacy')}</a>
+      <a href={`${homePath}terms-of-service`} class="caption text-mute hover:text-ink">{t('footer.terms')}</a>
+    </div>
+  </div>
+</footer>

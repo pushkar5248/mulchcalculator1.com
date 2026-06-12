@@ -1,0 +1,97 @@
+---
+import { languages } from '../i18n/ui';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<div class="relative" id="language-picker-container">
+  <button 
+    id="language-picker-button"
+    class="flex items-center gap-1 px-3 py-1.5 bg-canvas border border-hairline rounded-sm body-sm text-body hover:text-ink transition-colors"
+    aria-label="Select language"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    {languages[lang]}
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down w-4 h-4 text-mute transition-colors"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+  <div 
+    id="language-picker-dropdown"
+    class="absolute right-0 mt-1 w-32 bg-canvas border border-hairline rounded-sm shadow-level-2 opacity-0 invisible transition-all z-50 overflow-hidden"
+  >
+    {Object.entries(languages).map(([id, label]) => {
+      const url = new URL(Astro.url);
+      const segments = url.pathname.split('/').filter(Boolean);
+      
+      // If the first segment is a language code, remove it
+      if (segments.length > 0 && segments[0] in languages) {
+        segments.shift();
+      }
+      
+      // Prepend the new language code if it's not English
+      if (id !== 'en') {
+        segments.unshift(id);
+      }
+      
+      const newPath = '/' + segments.join('/');
+      
+      return (
+        <a
+          href={newPath}
+          class={`block px-4 py-2 body-sm hover:bg-canvas-soft transition-colors ${id === lang ? 'text-primary font-bold' : 'text-body'}`}
+        >
+          {label}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script is:inline>
+  function setupLanguagePicker() {
+    const container = document.getElementById('language-picker-container');
+    const button = document.getElementById('language-picker-button');
+    const dropdown = document.getElementById('language-picker-dropdown');
+
+    if (!button || !dropdown || !container) return;
+
+    function toggle(show) {
+      const isVisible = show !== undefined ? show : dropdown.classList.contains('invisible');
+      if (isVisible) {
+        dropdown.classList.remove('opacity-0', 'invisible');
+        dropdown.classList.add('opacity-100', 'visible');
+        button.setAttribute('aria-expanded', 'true');
+      } else {
+        dropdown.classList.add('opacity-0', 'invisible');
+        dropdown.classList.remove('opacity-100', 'visible');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
+    });
+
+    // Support hover on desktop
+    container.addEventListener('mouseenter', () => {
+      if (window.innerWidth >= 768) toggle(true);
+    });
+    container.addEventListener('mouseleave', () => {
+      if (window.innerWidth >= 768) toggle(false);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        toggle(false);
+      }
+    });
+  }
+
+  // Run on initial load
+  setupLanguagePicker();
+
+  // Run on view transitions if enabled
+  document.addEventListener('astro:after-swap', setupLanguagePicker);
+</script>

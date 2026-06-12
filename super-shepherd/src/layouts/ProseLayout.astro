@@ -1,0 +1,36 @@
+---
+import Layout from './Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { title } = Astro.props;
+---
+
+<Layout title={title}>
+  <Nav lang={lang} />
+  
+  <main class="py-24 px-6 bg-canvas">
+    <div class="max-w-3xl mx-auto space-y-12">
+      <header class="space-y-4">
+        <h1 class="display-lg text-ink">{title}</h1>
+        <div class="w-12 h-1 bg-primary rounded-full"></div>
+      </header>
+      
+      <div class="prose prose-neutral dark:prose-invert max-w-none
+        prose-p:text-body-md prose-p:text-body prose-p:leading-relaxed prose-p:mb-8
+        prose-strong:text-ink prose-strong:font-bold
+        prose-h2:text-display-md prose-h2:text-ink prose-h2:mt-16 prose-h2:mb-8 prose-h2:tracking-tighter
+        prose-h3:text-display-sm prose-h3:text-ink prose-h3:mt-8 prose-h3:mb-4
+        prose-li:text-body-md prose-li:text-body prose-li:mb-2
+        prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-8
+        prose-em:text-mute prose-em:italic
+      ">
+        <slot />
+      </div>
+    </div>
+  </main>
+
+  <Footer lang={lang} />
+</Layout>
