@@ -83,23 +83,23 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-12 space-y-12">
+    <div className="w-full max-w-5xl mx-auto px-4 py-12 space-y-12 bg-canvas">
       {/* Unit Toggle and Header */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-left space-y-2">
-          <h1 className="display-lg text-ink">{t('calc.title')}</h1>
+          <h1 className="display-sm text-ink">{t('calc.title')}</h1>
           <p className="body-sm text-body">{t('calc.subtitle')}</p>
         </div>
-        <div className="flex bg-canvas-soft border border-hairline rounded-sm p-1">
+        <div className="flex bg-canvas-soft border border-hairline-strong rounded-sm p-1">
           <button 
             onClick={() => setUnit('imperial')}
-            className={`px-4 py-1.5 body-sm-strong rounded-sm transition-all ${unit === 'imperial' ? 'bg-canvas text-ink shadow-level-1' : 'text-mute hover:text-body'}`}
+            className={`px-4 py-1.5 body-sm-strong rounded-sm transition-all duration-150 ${unit === 'imperial' ? 'bg-canvas text-ink shadow-sm' : 'text-mute hover:text-body hover:bg-canvas/50'}`}
           >
             {t('calc.imperial')}
           </button>
           <button 
             onClick={() => setUnit('metric')}
-            className={`px-4 py-1.5 body-sm-strong rounded-sm transition-all ${unit === 'metric' ? 'bg-canvas text-ink shadow-level-1' : 'text-mute hover:text-body'}`}
+            className={`px-4 py-1.5 body-sm-strong rounded-sm transition-all duration-150 ${unit === 'metric' ? 'bg-canvas text-ink shadow-sm' : 'text-mute hover:text-body hover:bg-canvas/50'}`}
           >
             {t('calc.metric')}
           </button>
@@ -111,32 +111,32 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
         <div className="lg:col-span-2 space-y-8">
           
           {/* Areas Section */}
-          <div className="bg-canvas border border-hairline rounded-lg overflow-hidden shadow-level-1">
-            <div className="bg-canvas-soft border-b border-hairline px-6 py-4 flex items-center justify-between">
+          <div className="bg-canvas border border-hairline-strong rounded-sm overflow-hidden shadow-sm">
+            <div className="bg-canvas-soft border-b border-hairline-strong px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-mute" />
-                <h2 className="body-md-strong">{t('calc.gardenAreas')}</h2>
+                <h2 className="body-md-strong uppercase tracking-wider text-xs">{t('calc.gardenAreas')}</h2>
               </div>
               <button 
                 onClick={addArea}
-                className="inline-flex items-center gap-1 text-link body-sm hover:underline"
+                className="classical-button h-8 px-4 text-xs"
               >
-                <Plus className="w-4 h-4" /> {t('calc.addArea')}
+                <Plus className="w-3 h-3 mr-1" /> {t('calc.addArea')}
               </button>
             </div>
             
             <div className="divide-y divide-hairline">
               {areas.map((area, index) => (
-                <div key={area.id} className="p-6 space-y-4">
+                <div key={area.id} className="p-6 space-y-4 hover:bg-canvas-soft/30 transition-colors">
                   <div className="flex items-center justify-between">
                     <input 
-                      className="bg-transparent border-none p-0 body-md-strong focus:ring-0 w-1/2"
+                      className="bg-transparent border-none p-0 body-md-strong focus:ring-0 w-1/2 focus:border-b focus:border-primary/20"
                       value={area.name}
                       onChange={(e) => updateArea(area.id, { name: e.target.value })}
                     />
                     <button 
                       onClick={() => removeArea(area.id)}
-                      className="text-mute hover:text-error transition-colors"
+                      className="text-mute hover:text-error transition-all hover:scale-110"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -144,10 +144,10 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
                   
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="space-y-1">
-                      <label className="caption text-mute">{t('calc.shape')}</label>
+                      <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.shape')}</label>
                       <div className="relative">
                         <select 
-                          className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm appearance-none focus:border-hairline-strong focus:ring-0 outline-none"
+                          className="w-full h-10 px-3 bg-canvas border border-hairline-strong rounded-sm body-sm appearance-none focus:border-primary focus:ring-0 outline-none transition-all"
                           value={area.shape}
                           onChange={(e) => updateArea(area.id, { shape: e.target.value as Shape })}
                         >
@@ -162,19 +162,19 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
                     {area.shape === 'rectangle' && (
                       <>
                         <div className="space-y-1">
-                          <label className="caption text-mute">{t('calc.length')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
+                          <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.length')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
                           <input 
                             type="number" 
-                            className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                            className="classical-input w-full"
                             value={area.length || ''}
                             onChange={(e) => updateArea(area.id, { length: parseFloat(e.target.value) || 0 })}
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="caption text-mute">{t('calc.width')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
+                          <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.width')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
                           <input 
                             type="number" 
-                            className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                            className="classical-input w-full"
                             value={area.width || ''}
                             onChange={(e) => updateArea(area.id, { width: parseFloat(e.target.value) || 0 })}
                           />
@@ -184,10 +184,10 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
                     
                     {area.shape === 'circle' && (
                       <div className="space-y-1">
-                        <label className="caption text-mute">{t('calc.diameter')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
+                        <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.diameter')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
                         <input 
                           type="number" 
-                          className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                          className="classical-input w-full"
                           value={area.diameter || ''}
                           onChange={(e) => updateArea(area.id, { diameter: parseFloat(e.target.value) || 0 })}
                         />
@@ -197,19 +197,19 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
                     {area.shape === 'triangle' && (
                       <>
                         <div className="space-y-1">
-                          <label className="caption text-mute">{t('calc.base')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
+                          <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.base')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
                           <input 
                             type="number" 
-                            className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                            className="classical-input w-full"
                             value={area.base || ''}
                             onChange={(e) => updateArea(area.id, { base: parseFloat(e.target.value) || 0 })}
                           />
                         </div>
                         <div className="space-y-1">
-                          <label className="caption text-mute">{t('calc.height')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
+                          <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.height')} ({unit === 'imperial' ? 'ft' : 'm'})</label>
                           <input 
                             type="number" 
-                            className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                            className="classical-input w-full"
                             value={area.height || ''}
                             onChange={(e) => updateArea(area.id, { height: parseFloat(e.target.value) || 0 })}
                           />
@@ -224,10 +224,10 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
 
           {/* Depth & Pricing Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-canvas border border-hairline rounded-lg p-6 shadow-level-1 space-y-6">
+            <div className="bg-canvas border border-hairline-strong rounded-sm p-6 shadow-sm space-y-6">
               <div className="flex items-center gap-2">
                 <Maximize2 className="w-4 h-4 text-mute" />
-                <h2 className="body-md-strong">{t('calc.mulchDepth')}</h2>
+                <h2 className="body-md-strong uppercase tracking-wider text-xs">{t('calc.mulchDepth')}</h2>
               </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -237,7 +237,7 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
                       <button 
                         key={d}
                         onClick={() => setDepth(d)}
-                        className={`w-8 h-8 rounded-sm body-sm border transition-colors ${depth === d ? 'bg-primary text-on-primary border-primary' : 'bg-canvas text-body border-hairline hover:border-hairline-strong'}`}
+                        className={`w-8 h-8 rounded-sm body-sm border transition-all duration-150 ${depth === d ? 'bg-primary text-on-primary border-primary shadow-sm' : 'bg-canvas text-body border-hairline-strong hover:bg-canvas-soft hover:shadow-inner'}`}
                       >
                         {d}
                       </button>
@@ -256,19 +256,19 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
               </div>
             </div>
 
-            <div className="bg-canvas border border-hairline rounded-lg p-6 shadow-level-1 space-y-6">
+            <div className="bg-canvas border border-hairline-strong rounded-sm p-6 shadow-sm space-y-6">
               <div className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-mute" />
-                <h2 className="body-md-strong">{t('calc.pricing')}</h2>
+                <h2 className="body-md-strong uppercase tracking-wider text-xs">{t('calc.pricing')}</h2>
               </div>
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <label className="caption text-mute">{t('calc.bulkPrice')} ({t('calc.per')} {unit === 'imperial' ? t('calc.cuYard') : t('calc.cuMeter')})</label>
+                  <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.bulkPrice')} ({t('calc.per')} {unit === 'imperial' ? t('calc.cuYard') : t('calc.cuMeter')})</label>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 body-sm text-mute">$</span>
                     <input 
                       type="number" 
-                      className="w-full h-10 pl-7 pr-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                      className="classical-input pl-7 pr-3 w-full"
                       value={pricePerUnit}
                       onChange={(e) => setPricePerUnit(parseFloat(e.target.value) || 0)}
                     />
@@ -276,21 +276,21 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="caption text-mute">{t('calc.bagSize')} ({unit === 'imperial' ? 'cu ft' : 'liters'})</label>
+                    <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.bagSize')} ({unit === 'imperial' ? 'cu ft' : 'liters'})</label>
                     <input 
                       type="number" 
-                      className="w-full h-10 px-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                      className="classical-input w-full"
                       value={bagSize}
                       onChange={(e) => setBagSize(parseFloat(e.target.value) || 0)}
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="caption text-mute">{t('calc.pricePerBag')}</label>
+                    <label className="caption text-mute font-medium uppercase tracking-tighter">{t('calc.pricePerBag')}</label>
                     <div className="relative">
                       <span className="absolute left-3 top-2.5 body-sm text-mute">$</span>
                       <input 
                         type="number" 
-                        className="w-full h-10 pl-7 pr-3 bg-canvas border border-hairline rounded-sm body-sm focus:border-hairline-strong focus:ring-0 outline-none"
+                        className="classical-input pl-7 pr-3 w-full"
                         value={pricePerBag}
                         onChange={(e) => setPricePerBag(parseFloat(e.target.value) || 0)}
                       />
@@ -304,39 +304,39 @@ const MulchCalculator: React.FC<Props> = ({ lang = defaultLang }) => {
 
         {/* Results Column */}
         <div className="space-y-8">
-          <div className="bg-primary text-on-primary rounded-lg p-8 shadow-level-4 sticky top-8 space-y-8">
-            <h2 className="display-sm border-b border-on-primary/10 pb-4">{t('calc.results')}</h2>
+          <div className="bg-canvas border-2 border-primary rounded-sm p-8 shadow-md sticky top-8 space-y-8">
+            <h2 className="display-sm border-b border-hairline-strong pb-4 uppercase tracking-widest text-sm text-primary">{t('calc.results')}</h2>
             
             <div className="space-y-6">
-              <div>
-                <label className="caption text-on-primary/60 block mb-1">{t('calc.totalVolume')}</label>
+              <div className="bg-canvas-soft p-4 rounded-sm border border-hairline-strong shadow-inner">
+                <label className="caption text-mute block mb-1 uppercase tracking-tighter font-bold">{t('calc.totalVolume')}</label>
                 <div className="flex items-baseline gap-2">
-                  <span className="display-lg">{totalVolume.toFixed(2)}</span>
-                  <span className="body-md">{unit === 'imperial' ? t('calc.cuYards') : t('calc.cuMeters')}</span>
+                  <span className="display-lg text-primary">{totalVolume.toFixed(2)}</span>
+                  <span className="body-md font-medium">{unit === 'imperial' ? t('calc.cuYards') : t('calc.cuMeters')}</span>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="caption text-on-primary/60 block mb-1">{unit === 'imperial' ? t('calc.cuFeet') : t('calc.liters')}</label>
-                  <span className="body-md-strong">
+                  <label className="caption text-mute block mb-1 uppercase tracking-tighter font-bold">{unit === 'imperial' ? t('calc.cuFeet') : t('calc.liters')}</label>
+                  <span className="body-md-strong text-ink">
                     {unit === 'imperial' ? (totalVolume * 27).toFixed(1) : (totalVolume * 1000).toFixed(0)}
                   </span>
                 </div>
                 <div>
-                  <label className="caption text-on-primary/60 block mb-1">{t('calc.totalArea')}</label>
-                  <span className="body-md-strong">{totalArea.toFixed(1)} {unit === 'imperial' ? 'sq. ft' : 'sq. m'}</span>
+                  <label className="caption text-mute block mb-1 uppercase tracking-tighter font-bold">{t('calc.totalArea')}</label>
+                  <span className="body-md-strong text-ink">{totalArea.toFixed(1)} {unit === 'imperial' ? 'sq. ft' : 'sq. m'}</span>
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-on-primary/10 space-y-4">
+              <div className="pt-6 border-t border-hairline-strong space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="body-sm text-on-primary/60 font-medium uppercase tracking-wider">{t('calc.bulkTotal')}</span>
-                  <span className="display-md text-success">${totalCostBulk.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  <span className="body-sm text-mute font-bold uppercase tracking-wider text-[10px]">{t('calc.bulkTotal')}</span>
+                  <span className="display-md text-ink">${totalCostBulk.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="body-sm text-on-primary/60 font-medium uppercase tracking-wider">{t('calc.baggedTotal')} ({numBags} {t('calc.bags')})</span>
-                  <span className="body-md-strong">${totalCostBags.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <div className="flex justify-between items-center p-3 bg-primary/5 border border-primary/10 rounded-sm">
+                  <span className="body-sm text-mute font-bold uppercase tracking-wider text-[10px]">{t('calc.baggedTotal')} ({numBags} {t('calc.bags')})</span>
+                  <span className="body-md-strong text-ink">${totalCostBags.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
               </div>
             </div>
