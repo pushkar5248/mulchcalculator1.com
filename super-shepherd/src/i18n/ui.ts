@@ -753,6 +753,17 @@ export const ui = {
     'privacy.title': 'Informativa sulla privacy',
     'terms.title': 'Termini di servizio',
     'contact.title': 'Contattaci',
+    'contact.content': `
+      <section>
+        <p class="body-lg">Hai domande tecniche sui nostri calcolatori o devi segnalare un problema? Il nostro team di ingegneri è pronto ad aiutarti. Diamo priorità ai feedback della nostra comunità per garantire che mulchcalculator1.com rimanga lo standard di riferimento nella stima del paesaggio.</p>
+      </section>
+    `,
+    'error.404.title': 'Pagina non trovata',
+    'error.404.description': 'Spiacenti, non siamo riusciti a trovare la pagina che stai cercando.',
+    'error.404.cta': 'Torna alla home',
+    'error.500.title': 'Errore del server',
+    'error.500.description': 'Qualcosa è andato storto da parte nostra. Riprova più tardi.',
+    'error.500.cta': 'Torna alla home',
   },
   ru: {
     'nav.calculator': 'Главная',
