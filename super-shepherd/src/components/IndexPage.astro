@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MulchCalculator from '../components/MulchCalculator';
+import FAQ from '../components/FAQ.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LanguagePicker from '../components/LanguagePicker.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { ChevronRight, Layers, Maximize2, DollarSign } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout>
+	<Nav lang={lang} />
+
+	<main>
+		<!-- Hero Section -->
+		<section class="relative overflow-hidden pt-24 pb-32 px-6">
+			<!-- Mesh Gradient Backdrop -->
+			<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10 mesh-gradient opacity-60"></div>
+			
+			<div class="max-w-5xl mx-auto text-center space-y-8">
+				<div class="inline-flex items-center gap-2 px-3 py-1 bg-canvas-soft border border-hairline rounded-full shadow-level-1 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+					<span class="caption-mono text-violet font-semibold">{t('hero.badge')}</span>
+					<span class="body-sm text-body">{t('hero.badgeText')}</span>
+					<ChevronRight className="w-4 h-4 text-mute" />
+				</div>
+				
+				<h1 class="display-xl text-ink max-w-4xl mx-auto text-balance">
+					{t('hero.title')}
+				</h1>
+				
+				<p class="body-lg text-body max-w-2xl mx-auto text-balance">
+					{t('hero.description')}
+				</p>
+				
+				<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+					<a href="#calculator" class="h-12 px-8 bg-primary text-on-primary rounded-pill body-sm-strong flex items-center justify-center hover:shadow-level-3 transition-all">
+						{t('hero.ctaStart')}
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Calculator Section -->
+		<section id="calculator" class="bg-canvas py-24 border-t border-hairline">
+			<MulchCalculator client:load lang={lang} />
+		</section>
+
+		<!-- Features Grid -->
+		<section id="features" class="bg-canvas-soft py-24 border-t border-hairline px-6">
+			<div class="max-w-5xl mx-auto space-y-16">
+				<div class="text-center space-y-4">
+					<h2 class="display-lg">{t('features.title')}</h2>
+					<p class="body-md text-body">{t('features.description')}</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					<div class="bg-canvas p-8 rounded-lg border border-hairline shadow-level-1 space-y-4">
+						<div class="w-10 h-10 bg-cyan-soft rounded-md flex items-center justify-center">
+							<Layers className="w-5 h-5 text-cyan-deep" />
+						</div>
+						<h3 class="body-md-strong">{t('features.areaTitle')}</h3>
+						<p class="body-sm text-body">{t('features.areaText')}</p>
+					</div>
+					<div class="bg-canvas p-8 rounded-lg border border-hairline shadow-level-1 space-y-4">
+						<div class="w-10 h-10 bg-violet-soft rounded-md flex items-center justify-center">
+							<Maximize2 className="w-5 h-5 text-violet-deep" />
+						</div>
+						<h3 class="body-md-strong">{t('features.shapesTitle')}</h3>
+						<p class="body-sm text-body">{t('features.shapesText')}</p>
+					</div>
+					<div class="bg-canvas p-8 rounded-lg border border-hairline shadow-level-1 space-y-4">
+						<div class="w-10 h-10 bg-warning-soft rounded-md flex items-center justify-center">
+							<DollarSign className="w-5 h-5 text-warning-deep" />
+						</div>
+						<h3 class="body-md-strong">{t('features.costTitle')}</h3>
+						<p class="body-sm text-body">{t('features.costText')}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- SEO Content Section -->
+		<section class="bg-canvas py-24 border-t border-hairline px-6">
+			<div class="max-w-3xl mx-auto space-y-12 prose prose-neutral">
+				<h2 class="display-md">{t('seo.title')}</h2>
+				<p class="body-md text-body">
+					{t('seo.p1')}
+				</p>
+				<h3 class="body-md-strong text-ink">{t('seo.h3')}</h3>
+				<p class="body-sm text-body">
+					{t('seo.p2')}
+				</p>
+				<div class="bg-canvas-soft border border-hairline rounded-md p-6 space-y-4 mb-16">
+					<div class="flex items-center gap-2">
+						<div class="w-8 h-8 bg-link-bg-soft rounded-full flex items-center justify-center">
+							<span class="text-link-deep font-bold text-xs">!</span>
+						</div>
+						<h4 class="caption-mono text-mute">{t('seo.tip')}</h4>
+					</div>
+					<p class="body-sm italic text-body">{t('seo.tipText')}</p>
+				</div>
+
+				{lang === 'en' && (
+					<div class="mt-24 pt-24 border-t border-hairline">
+						<div class="prose prose-neutral max-w-none 
+							prose-headings:font-geist prose-headings:font-semibold prose-headings:tracking-tighter
+							prose-h2:text-display-lg prose-h2:mb-16 prose-h2:text-center prose-h2:text-ink
+							prose-h3:text-display-sm prose-h3:mt-0 prose-h3:mb-6 prose-h3:text-ink prose-h3:flex prose-h3:items-center prose-h3:gap-3
+							prose-h3:before:content-[''] prose-h3:before:w-1 prose-h3:before:h-6 prose-h3:before:bg-primary prose-h3:before:rounded-full
+							prose-p:text-body-md prose-p:text-body prose-p:leading-relaxed prose-p:mb-8
+							prose-li:text-body-sm prose-li:text-body prose-li:mb-2
+							prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-8
+							prose-strong:text-ink prose-strong:font-bold
+							[&>div]:grid [&>div]:grid-cols-1 [&>div]:md:grid-cols-2 [&>div]:gap-x-12 [&>div]:gap-y-16 [&>div]:mb-16
+							[&>section]:bg-canvas-soft/50 [&>section]:p-10 [&>section]:rounded-xl [&>section]:border [&>section]:border-hairline [&>section]:mb-16 [&>section]:shadow-sm
+							[&>p.text-center]:mt-16 [&>p.text-center]:text-lg [&>p.text-center]:max-w-2xl [&>p.text-center]:mx-auto
+						" set:html={t('seo.longContent')}>
+						</div>
+					</div>
+				)}
+			</div>
+		</section>
+
+		<FAQ lang={lang} />
+	</main>
+
+	<Footer lang={lang} />
+</Layout>

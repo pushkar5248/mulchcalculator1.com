@@ -1,0 +1,108 @@
+---
+import { useTranslations } from '../i18n/utils';
+import { ChevronDown } from 'lucide-react';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const faqItems = [
+  { q: t('faq.q1'), a: t('faq.a1') },
+  { q: t('faq.q2'), a: t('faq.a2') },
+  { q: t('faq.q3'), a: t('faq.a3') },
+  { q: t('faq.q4'), a: t('faq.a4') },
+  { q: t('faq.q5'), a: t('faq.a5') },
+  { q: t('faq.q6'), a: t('faq.a6') },
+  { q: t('faq.q7'), a: t('faq.a7') },
+  { q: t('faq.q8'), a: t('faq.a8') },
+  { q: t('faq.q9'), a: t('faq.a9') },
+  { q: t('faq.q10'), a: t('faq.a10') },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\*(.*?)\*/g, '<i>$1</i>')
+    }
+  }))
+};
+
+function formatAnswer(text: string) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-ink font-semibold">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+}
+---
+
+<section id="faq" class="bg-canvas py-24 border-t border-hairline px-6">
+  <div class="max-w-3xl mx-auto space-y-12">
+    <div class="text-center space-y-4">
+      <h2 class="display-md text-ink">{t('faq.title')}</h2>
+      <div class="w-12 h-1 bg-primary mx-auto rounded-full"></div>
+    </div>
+    
+    <div class="space-y-4">
+      {faqItems.map((item, index) => (
+        <div class="faq-item group border border-hairline rounded-xl overflow-hidden bg-canvas hover:border-mute transition-all duration-300 shadow-sm hover:shadow-md">
+          <button 
+            class="faq-button w-full px-6 py-5 text-left flex justify-between items-center bg-canvas hover:bg-canvas-soft transition-colors"
+            aria-expanded="false"
+          >
+            <span class="body-md-strong text-ink pr-4">{item.q}</span>
+            <ChevronDown className="w-5 h-5 text-mute group-hover:text-primary transition-transform duration-300" />
+          </button>
+          <div class="faq-answer hidden px-6 py-5 border-t border-hairline bg-canvas-soft/30 animate-in fade-in slide-in-from-top-2 duration-300">
+            <p class="body-sm text-body leading-relaxed" set:html={formatAnswer(item.a)}>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<script>
+  function setupFaq() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const button = item.querySelector('.faq-button');
+      const answer = item.querySelector('.faq-answer');
+      const icon = item.querySelector('svg');
+
+      button?.addEventListener('click', () => {
+        const isOpen = button.getAttribute('aria-expanded') === 'true';
+        
+        // Close other open items (optional, but usually nicer)
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherButton = otherItem.querySelector('.faq-button');
+            const otherAnswer = otherItem.querySelector('.faq-answer');
+            const otherIcon = otherItem.querySelector('svg');
+            
+            otherButton?.setAttribute('aria-expanded', 'false');
+            otherAnswer?.classList.add('hidden');
+            otherIcon?.classList.remove('rotate-180');
+          }
+        });
+
+        // Toggle current item
+        button.setAttribute('aria-expanded', !isOpen);
+        answer?.classList.toggle('hidden');
+        icon?.classList.toggle('rotate-180');
+      });
+    });
+  }
+
+  // Run on initial load
+  setupFaq();
+
+  // Run on view transitions (for Astro)
+  document.addEventListener('astro:after-swap', setupFaq);
+</script>
