@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import GravelCalculator from '../components/GravelCalculator';
+import { getLangFromUrl } from '../i18n/utils';
+import { Package, Scale, Truck } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+
+const gravelCalculatorSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Gravel Calculator',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  url: Astro.url.toString(),
+  description: 'Calculate gravel cubic yards, tons, bags, coverage, and cost for driveways, paths, patios, and landscaping projects.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+---
+
+<Layout
+  title="Gravel Calculator - Calculate Yards, Tons, Bags & Cost"
+  description="Free gravel calculator for driveways, paths, patios, and landscaping. Estimate cubic yards, tons, bags, coverage, and cost with imperial or metric units."
+  keywords="gravel calculator, gravel calculator yards, gravel calculator tons, gravel calculator bags, gravel cost calculator, driveway gravel calculator, pea gravel calculator, crushed stone calculator, gravel cubic yards calculator, gravel coverage calculator"
+>
+  <Nav lang={lang} />
+
+  <main>
+    <section id="calculator" class="relative overflow-hidden bg-canvas px-6 py-12 sm:py-16 border-b border-hairline">
+      <div class="absolute inset-x-0 top-0 h-72 mesh-gradient opacity-30 pointer-events-none"></div>
+      <div class="relative max-w-5xl mx-auto space-y-10">
+        <div class="max-w-3xl space-y-5">
+          <p class="caption-mono text-mute">GRAVEL CALCULATOR</p>
+          <h1 class="display-xl text-ink max-w-2xl">Calculate gravel yards, tons, and bags in one fast tool.</h1>
+          <p class="body-lg text-body max-w-2xl">
+            A cleaner mobile-first gravel calculator for driveways, paths, patios, and landscape beds. Enter your shape, depth, material density, and bag size to estimate cubic yards, tons, bags, and cost instantly.
+          </p>
+        </div>
+
+        <GravelCalculator client:load />
+      </div>
+    </section>
+
+    <section class="bg-canvas-soft px-6 py-20 border-b border-hairline">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="classical-card rounded-sm p-6 space-y-4">
+          <div class="w-10 h-10 rounded-sm bg-cyan-soft border border-cyan-deep/20 flex items-center justify-center">
+            <Truck className="w-5 h-5 text-cyan-deep" />
+          </div>
+          <h2 class="display-sm text-ink">Cubic yards</h2>
+          <p class="body-sm text-body">Use cubic yards for bulk delivery orders. The calculator converts area and depth into cubic feet, then divides by 27.</p>
+        </article>
+
+        <article class="classical-card rounded-sm p-6 space-y-4">
+          <div class="w-10 h-10 rounded-sm bg-violet-soft border border-violet-deep/20 flex items-center justify-center">
+            <Scale className="w-5 h-5 text-violet-deep" />
+          </div>
+          <h2 class="display-sm text-ink">Tons or tonnes</h2>
+          <p class="body-sm text-body">Estimate weight using common material densities for gravel, pea gravel, crushed stone, limestone, and sand.</p>
+        </article>
+
+        <article class="classical-card rounded-sm p-6 space-y-4">
+          <div class="w-10 h-10 rounded-sm bg-warning-soft border border-warning-deep/20 flex items-center justify-center">
+            <Package className="w-5 h-5 text-warning-deep" />
+          </div>
+          <h2 class="display-sm text-ink">Bag count</h2>
+          <p class="body-sm text-body">Buying from a store? Enter the bag size and price to compare bagged material against a bulk delivery estimate.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-canvas px-6 py-20">
+      <div class="max-w-3xl mx-auto prose prose-neutral max-w-none
+        prose-headings:font-geist prose-headings:font-semibold prose-headings:tracking-tighter
+        prose-h2:text-display-md prose-h2:text-ink
+        prose-p:text-body-md prose-p:text-body prose-p:leading-relaxed
+        prose-li:text-body-sm prose-li:text-body
+        prose-strong:text-ink">
+        <h2>How the gravel calculator works</h2>
+        <p>
+          Gravel volume starts with the surface area of your project. Rectangles use length × width, circles use π × radius², and triangles use base × height ÷ 2. The calculator multiplies that area by depth, then adds your waste or compaction percentage.
+        </p>
+        <p>
+          For imperial projects, cubic feet are converted to cubic yards by dividing by 27. Weight is estimated from material density, then converted into US tons. For metric projects, volume is calculated in cubic meters and weight is shown in tonnes.
+        </p>
+        <h2>Recommended ordering approach</h2>
+        <ul>
+          <li><strong>Use cubic yards</strong> when calling a landscape supply yard for bulk gravel.</li>
+          <li><strong>Use tons</strong> when the supplier sells by weight instead of volume.</li>
+          <li><strong>Use bags</strong> for small paths, touch-ups, and store pickup projects.</li>
+          <li><strong>Add 5–15% extra</strong> for uneven ground, compaction, and installation loss.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(gravelCalculatorSchema)} />
+
+  <Footer lang={lang} />
+</Layout>

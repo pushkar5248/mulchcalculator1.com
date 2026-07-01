@@ -7,6 +7,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const homePath = lang === 'en' ? '/' : `/${lang}/`;
+const gravelPath = lang === 'en' ? '/gravel-calculator' : `/${lang}/gravel-calculator`;
 ---
 
 <nav class="sticky top-0 z-40 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline px-6">
@@ -19,7 +20,8 @@ const homePath = lang === 'en' ? '/' : `/${lang}/`;
         <span class="body-md-strong tracking-tighter">mulchcalculator1.com</span>
       </a>
       <div class="hidden md:flex items-center gap-6">
-        <a href={`${homePath}#calculator`} class="body-sm text-body hover:text-ink transition-colors">{t('nav.calculator')}</a>
+        <a href={`${homePath}#calculator`} class="body-sm text-body hover:text-ink transition-colors">Mulch Calculator</a>
+        <a href={gravelPath} class="body-sm text-body hover:text-ink transition-colors">Gravel Calculator</a>
         <a href={`${homePath}#faq`} class="body-sm text-body hover:text-ink transition-colors">{t('nav.faq')}</a>
         <a href={`${homePath}about-us`} class="body-sm text-body hover:text-ink transition-colors">{t('nav.about')}</a>
       </div>
@@ -44,7 +46,8 @@ const homePath = lang === 'en' ? '/' : `/${lang}/`;
     id="mobile-menu"
     class="hidden border-t border-hairline py-4 space-y-4 bg-canvas animate-in slide-in-from-top duration-200"
   >
-    <a href={`${homePath}#calculator`} class="block body-md text-body hover:text-ink transition-colors px-2">{t('nav.calculator')}</a>
+    <a href={`${homePath}#calculator`} class="block body-md text-body hover:text-ink transition-colors px-2">Mulch Calculator</a>
+    <a href={gravelPath} class="block body-md text-body hover:text-ink transition-colors px-2">Gravel Calculator</a>
     <a href={`${homePath}#faq`} class="block body-md text-body hover:text-ink transition-colors px-2">{t('nav.faq')}</a>
     <a href={`${homePath}about-us`} class="block body-md text-body hover:text-ink transition-colors px-2">{t('nav.about')}</a>
     <a href={`${homePath}contact-us`} class="block body-md text-body hover:text-ink transition-colors px-2">{t('nav.contact')}</a>

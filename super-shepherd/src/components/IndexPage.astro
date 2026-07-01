@@ -55,6 +55,9 @@ const t = useTranslations(lang);
 					<div class="text-center space-y-4">
 						<h2 class="display-lg">{t('features.title')}</h2>
 						<p class="body-md text-body">{t('features.description')}</p>
+						<a href={lang === 'en' ? '/gravel-calculator' : `/${lang}/gravel-calculator`} class="inline-flex items-center justify-center classical-button h-10 px-5 mt-2">
+							Try the Gravel Calculator
+						</a>
 					</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">

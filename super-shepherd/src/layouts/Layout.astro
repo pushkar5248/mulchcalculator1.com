@@ -5,10 +5,11 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { title, description } = Astro.props;
+const { title, description, keywords } = Astro.props;
 
 const metaTitle = title || t('seo.title');
 const metaDescription = description || t('seo.p1');
+const metaKeywords = keywords || 'mulch calculator, lowes mulch calculator, mulch calculator lowes, home depot mulch calculator, mulch calculator bags, mulch calculator yards, mulch calculator cubic yards, mulch calculator square feet, rubber mulch calculator, bark mulch calculator, how much mulch calculator, playground mulch calculator, landscape mulch calculator, circle mulch calculator, rock mulch calculator';
 ---
 
 <!doctype html>
@@ -28,7 +29,8 @@ const metaDescription = description || t('seo.p1');
 		<title>{metaTitle}</title>
 		<meta name="title" content={metaTitle} />
 		<meta name="description" content={metaDescription} />
-		<meta name="keywords" content="mulch calculator, lowes mulch calculator, mulch calculator lowes, home depot mulch calculator, mulch calculator bags, mulch calculator yards, mulch calculator cubic yards, mulch calculator square feet, rubber mulch calculator, bark mulch calculator, how much mulch calculator, playground mulch calculator, landscape mulch calculator, circle mulch calculator, rock mulch calculator" />
+		<meta name="keywords" content={metaKeywords} />
+		<link rel="canonical" href={Astro.url} />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
