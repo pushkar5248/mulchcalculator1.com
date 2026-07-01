@@ -32,24 +32,34 @@ const gravelCalculatorSchema = {
   <Nav lang={lang} />
 
   <main>
-    <section id="calculator" class="relative overflow-hidden bg-canvas px-6 py-12 sm:py-16 border-b border-hairline">
-      <div class="absolute inset-x-0 top-0 h-72 mesh-gradient opacity-30 pointer-events-none"></div>
-      <div class="relative max-w-5xl mx-auto space-y-10">
-        <div class="max-w-3xl space-y-5">
-          <p class="caption-mono text-mute">GRAVEL CALCULATOR</p>
-          <h1 class="display-xl text-ink max-w-2xl">Calculate gravel yards, tons, and bags in one fast tool.</h1>
-          <p class="body-lg text-body max-w-2xl">
-            A cleaner mobile-first gravel calculator for driveways, paths, patios, and landscape beds. Enter your shape, depth, material density, and bag size to estimate cubic yards, tons, bags, and cost instantly.
+    <section id="calculator" class="relative overflow-hidden bg-canvas px-4 sm:px-6 py-14 sm:py-20 border-b border-hairline">
+      <div class="absolute inset-x-0 top-0 h-[420px] mesh-gradient opacity-35 pointer-events-none"></div>
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-hairline-strong to-transparent"></div>
+      <div class="relative max-w-6xl mx-auto space-y-12">
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          <div class="inline-flex items-center gap-2 rounded-full border border-hairline-strong bg-canvas/80 px-4 py-2 shadow-sm backdrop-blur">
+            <span class="h-2 w-2 rounded-full bg-cyan-deep"></span>
+            <p class="caption-mono text-mute">GRAVEL CALCULATOR</p>
+          </div>
+          <h1 class="display-xl text-ink max-w-3xl mx-auto">Calculate gravel yards, tons, and bags in one fast tool.</h1>
+          <p class="body-lg text-body max-w-2xl mx-auto">
+            A clean, mobile-first gravel calculator for driveways, paths, patios, and landscape beds. Enter your shape, depth, material density, and bag size to estimate cubic yards, tons, bags, and cost instantly.
           </p>
+          <div class="flex flex-wrap justify-center gap-3 pt-2">
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Cubic yards</span>
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Tons</span>
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Bags</span>
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Driveways</span>
+          </div>
         </div>
 
         <GravelCalculator client:load />
       </div>
     </section>
 
-    <section class="bg-canvas-soft px-6 py-20 border-b border-hairline">
-      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        <article class="classical-card rounded-sm p-6 space-y-4">
+    <section class="bg-canvas-soft px-4 sm:px-6 py-16 sm:py-20 border-b border-hairline">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <article class="classical-card rounded-lg p-6 sm:p-7 space-y-4">
           <div class="w-10 h-10 rounded-sm bg-cyan-soft border border-cyan-deep/20 flex items-center justify-center">
             <Truck className="w-5 h-5 text-cyan-deep" />
           </div>
@@ -57,7 +67,7 @@ const gravelCalculatorSchema = {
           <p class="body-sm text-body">Use cubic yards for bulk delivery orders. The calculator converts area and depth into cubic feet, then divides by 27.</p>
         </article>
 
-        <article class="classical-card rounded-sm p-6 space-y-4">
+        <article class="classical-card rounded-lg p-6 sm:p-7 space-y-4">
           <div class="w-10 h-10 rounded-sm bg-violet-soft border border-violet-deep/20 flex items-center justify-center">
             <Scale className="w-5 h-5 text-violet-deep" />
           </div>
@@ -65,7 +75,7 @@ const gravelCalculatorSchema = {
           <p class="body-sm text-body">Estimate weight using common material densities for gravel, pea gravel, crushed stone, limestone, and sand.</p>
         </article>
 
-        <article class="classical-card rounded-sm p-6 space-y-4">
+        <article class="classical-card rounded-lg p-6 sm:p-7 space-y-4">
           <div class="w-10 h-10 rounded-sm bg-warning-soft border border-warning-deep/20 flex items-center justify-center">
             <Package className="w-5 h-5 text-warning-deep" />
           </div>
@@ -79,23 +89,44 @@ const gravelCalculatorSchema = {
       <div class="max-w-3xl mx-auto prose prose-neutral max-w-none
         prose-headings:font-geist prose-headings:font-semibold prose-headings:tracking-tighter
         prose-h2:text-display-md prose-h2:text-ink
+        prose-h3:text-display-sm prose-h3:text-ink
         prose-p:text-body-md prose-p:text-body prose-p:leading-relaxed
         prose-li:text-body-sm prose-li:text-body
         prose-strong:text-ink">
-        <h2>How the gravel calculator works</h2>
+        <h2>Gravel Calculator for Yards, Tons, Bags, and Driveway Projects</h2>
         <p>
-          Gravel volume starts with the surface area of your project. Rectangles use length × width, circles use π × radius², and triangles use base × height ÷ 2. The calculator multiplies that area by depth, then adds your waste or compaction percentage.
+          This <strong>gravel calculator</strong> is built for homeowners, contractors, and landscape planners who need a fast way to estimate material before ordering. Instead of guessing from a generic chart, the tool converts your measured area and installation depth into cubic feet, cubic yards, cubic meters, tons, tonnes, and bags. That makes it useful as a <strong>gravel calculator yards</strong> tool for bulk deliveries, a <strong>driveway gravel calculator</strong> for larger residential projects, and a bag estimator for small paths or garden borders.
         </p>
         <p>
-          For imperial projects, cubic feet are converted to cubic yards by dividing by 27. Weight is estimated from material density, then converted into US tons. For metric projects, volume is calculated in cubic meters and weight is shown in tonnes.
+          The calculator supports rectangular, circular, and triangular areas, so it works for driveways, patios, paver bases, side yards, fire pit pads, parking strips, and landscape beds. For a rectangular driveway, enter length and width. For a round feature, enter diameter. For a triangular wedge or corner section, enter base and height. The calculator multiplies the area by your selected depth and adds a waste or compaction allowance, which helps produce a more realistic order quantity.
         </p>
-        <h2>Recommended ordering approach</h2>
-        <ul>
-          <li><strong>Use cubic yards</strong> when calling a landscape supply yard for bulk gravel.</li>
-          <li><strong>Use tons</strong> when the supplier sells by weight instead of volume.</li>
-          <li><strong>Use bags</strong> for small paths, touch-ups, and store pickup projects.</li>
-          <li><strong>Add 5–15% extra</strong> for uneven ground, compaction, and installation loss.</li>
-        </ul>
+
+        <h2>Why Gravel Density Changes the Final Estimate</h2>
+        <p>
+          Gravel is not sold by one universal weight because density changes by material, stone size, moisture level, and compaction. A <strong>pea gravel calculator</strong> often uses a slightly lighter density than a <strong>crushed gravel calculator</strong> because rounded pea gravel has more air space between stones. Crushed stone usually packs tighter and can weigh more per cubic yard. Limestone, sand, road base, and decorative gravel also vary, so two projects with the same cubic yard volume can require different tonnage.
+        </p>
+        <p>
+          This matters when your supplier sells by weight. A bulk yard may quote gravel by the ton, while landscape retailers often describe coverage by cubic yard or bag size. The calculator bridges those buying methods by showing yards, tons, and bags together. For the most accurate order, ask your supplier for the density of the exact product you plan to buy. If that information is not available, the included density presets provide practical planning estimates for standard gravel, pea gravel, crushed stone, limestone, and sand.
+        </p>
+
+        <h2>Commercial Versus Residential Gravel Depths</h2>
+        <p>
+          Depth is one of the biggest factors in every <strong>gravel calculator for driveway</strong> estimate. Residential decorative areas may only need 2 inches of gravel over a prepared base. Walkways and garden paths often use 2 to 3 inches for comfortable coverage. A residential driveway commonly needs a deeper layered base, especially if vehicles park on it daily. In those cases, a <strong>gravel calculator driveway</strong> estimate may use 4 to 6 inches for a top layer or more when including compacted base stone.
+        </p>
+        <p>
+          Commercial driveways, access roads, storage yards, and parking areas usually require greater depth because they carry heavier loads and more frequent traffic. These projects may use multiple layers of crushed stone, with larger aggregate at the bottom and smaller gravel at the surface. A <strong>paver gravel calculator</strong> also needs careful depth planning because paver installations typically include compacted gravel base, bedding sand, and the paver thickness itself. Always follow local code, soil conditions, drainage needs, and contractor recommendations for structural projects.
+        </p>
+
+        <h2>Ordering Tips for Better Gravel Estimates</h2>
+        <p>
+          Measure every section separately before using the calculator. For irregular driveways, split the project into simple rectangles or triangles, calculate each area, and add the totals. Add 5% to 15% extra for compaction, uneven ground, edges, settling, and small measurement errors. If the ground is soft or rutted, you may need more base material than a surface-only calculator suggests.
+        </p>
+        <p>
+          When ordering bulk gravel, round up to the nearest practical delivery quantity. Suppliers may have minimum delivery amounts, truck load limits, or price breaks at certain tonnage levels. If you are buying bags, use the bag count as a minimum and consider one or two extra bags for touch-ups. For driveway projects, confirm whether the supplier recommends crushed gravel, road base, or decorative gravel, because the best material depends on drainage, slope, traffic, and desired appearance.
+        </p>
+        <p>
+          A good <strong>gravel calculator</strong> gives you a strong starting point, but the final order should also account for installation method. Loose decorative gravel covers differently than compacted base gravel. Wet material can weigh more than dry material. Freshly spread stone can settle after the first rain or after vehicle traffic. Use this calculator to compare yards, tons, and bags quickly, then verify the final quantity with your material supplier before scheduling delivery.
+        </p>
       </div>
     </section>
   </main>

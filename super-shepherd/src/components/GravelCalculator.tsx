@@ -117,9 +117,9 @@ const GravelCalculator: React.FC = () => {
   const depthUnit = unit === 'imperial' ? 'in' : 'cm';
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-canvas border border-hairline-strong rounded-sm shadow-level-2 overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px]">
-        <div className="p-5 sm:p-8 space-y-8">
+    <div className="w-full max-w-6xl mx-auto bg-canvas/95 border border-hairline-strong rounded-xl shadow-level-4 overflow-hidden backdrop-blur">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="p-5 sm:p-8 lg:p-10 space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <p className="caption-mono text-mute mb-2">FAST MATERIAL ESTIMATE</p>
@@ -138,8 +138,13 @@ const GravelCalculator: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <label className="space-y-1 sm:col-span-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="sm:col-span-2 rounded-lg border border-hairline bg-canvas-soft/60 p-4 sm:p-5 space-y-4">
+              <div className="flex items-center gap-2">
+                <Ruler className="w-4 h-4 text-mute" />
+                <h3 className="body-md-strong text-ink">Project dimensions</h3>
+              </div>
+              <label className="space-y-1 block">
               <span className="caption text-mute uppercase font-medium">Area shape</span>
               <div className="relative">
                 <select value={shape} onChange={(e) => setShape(e.target.value as Shape)} className="classical-input w-full appearance-none">
@@ -164,25 +169,31 @@ const GravelCalculator: React.FC = () => {
                 <NumberField label={`Height (${dimensionUnit})`} value={height} onChange={setHeight} />
               </>
             )}
+            </div>
 
-            <NumberField label={`Depth (${depthUnit})`} value={depth} onChange={setDepth} />
-            <NumberField label="Waste / compaction (%)" value={waste} onChange={setWaste} />
+            <div className="rounded-lg border border-hairline bg-canvas p-4 sm:p-5 space-y-4">
+              <h3 className="body-md-strong text-ink">Depth & allowance</h3>
+              <NumberField label={`Depth (${depthUnit})`} value={depth} onChange={setDepth} />
+              <NumberField label="Waste / compaction (%)" value={waste} onChange={setWaste} />
+            </div>
 
-            <label className="space-y-1 sm:col-span-2">
-              <span className="caption text-mute uppercase font-medium">Material density</span>
-              <div className="relative">
-                <select value={material} onChange={(e) => setMaterial(e.target.value as MaterialKey)} className="classical-input w-full appearance-none">
-                  {Object.entries(MATERIAL_LABELS).map(([key, label]) => (
-                    <option key={key} value={key}>{label}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-3 w-4 h-4 text-mute pointer-events-none" />
-              </div>
-            </label>
-
-            <NumberField label={unit === 'imperial' ? 'Bag size (cu ft)' : 'Bag size (liters)'} value={bagSize} onChange={setBagSize} />
-            <NumberField label={unit === 'imperial' ? 'Bulk price ($/ton)' : 'Bulk price ($/tonne)'} value={pricePerTon} onChange={setPricePerTon} />
-            <NumberField label="Price per bag ($)" value={pricePerBag} onChange={setPricePerBag} />
+            <div className="rounded-lg border border-hairline bg-canvas p-4 sm:p-5 space-y-4">
+              <h3 className="body-md-strong text-ink">Material & pricing</h3>
+              <label className="space-y-1 block">
+                <span className="caption text-mute uppercase font-medium">Material density</span>
+                <div className="relative">
+                  <select value={material} onChange={(e) => setMaterial(e.target.value as MaterialKey)} className="classical-input w-full appearance-none">
+                    {Object.entries(MATERIAL_LABELS).map(([key, label]) => (
+                      <option key={key} value={key}>{label}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-3 w-4 h-4 text-mute pointer-events-none" />
+                </div>
+              </label>
+              <NumberField label={unit === 'imperial' ? 'Bag size (cu ft)' : 'Bag size (liters)'} value={bagSize} onChange={setBagSize} />
+              <NumberField label={unit === 'imperial' ? 'Bulk price ($/ton)' : 'Bulk price ($/tonne)'} value={pricePerTon} onChange={setPricePerTon} />
+              <NumberField label="Price per bag ($)" value={pricePerBag} onChange={setPricePerBag} />
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -195,7 +206,7 @@ const GravelCalculator: React.FC = () => {
           </div>
         </div>
 
-        <aside className="bg-canvas-soft border-t lg:border-t-0 lg:border-l border-hairline-strong p-5 sm:p-8 space-y-5">
+        <aside className="bg-canvas-soft border-t lg:border-t-0 lg:border-l border-hairline-strong p-5 sm:p-8 lg:p-10 space-y-5 lg:sticky lg:top-20 lg:self-start">
           <div>
             <p className="caption-mono text-mute mb-2">YOUR ORDER ESTIMATE</p>
             <h2 className="display-sm text-ink">Yards, tons & bags</h2>
