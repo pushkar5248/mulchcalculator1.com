@@ -42,5 +42,7 @@
             "state": "opened",
             "noItemText": "The project has no merge requests"
         }
-    ]
+    ],
+    "gitlab.duoAgentPlatform.enabled": true,
+    "gitlab.duoAgentPlatform.defaultNamespace": "pushkargoyal5248-group"
 }
