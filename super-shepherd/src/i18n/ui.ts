@@ -126,7 +126,7 @@ export const ui = {
     'calc.calculate': 'Calculate',
     'calc.clear': 'Clear',
     'calc.conclusion': 'The amount of mulch needed is {liters} liters, {cuMeters} cubic meters, {cuYards} cubic yards, or {cuFeet} cubic feet. At ${price} per {unitLabel}, the total cost will be ${total}.',
-    'faq.title': 'Preguntas Frecuentes',
+    'faq.title': 'Frequently Asked Questions',
     'faq.q1': 'How much mulch do I need? (How much mulch calculator)',
     'faq.a1': 'Use our **mulch calculator** to determine the exact volume. Simply measure your garden bed\'s square footage and multiply by the desired depth (typically 3 inches). For cubic yards, divide the result by 324.',
     'faq.q2': 'How many bags of mulch do I need? (How many bags of mulch calculator)',
