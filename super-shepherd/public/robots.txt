@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mulchcalculator1.com/sitemap-index.xml
-Sitemap: https://mulchcalculator1.com/sitemap.xml
+Sitemap: https://www.mulchcalculator1.com/sitemap-index.xml
