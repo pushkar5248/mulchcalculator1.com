@@ -7,7 +7,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mulchcalculator1.com',
+  site: 'https://www.mulchcalculator1.com',
   integrations: [react(), sitemap()],
   output: 'server',
   adapter: cloudflare(),
