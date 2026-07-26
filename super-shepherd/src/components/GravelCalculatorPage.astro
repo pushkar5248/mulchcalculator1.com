@@ -1,0 +1,233 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import GravelCalculator from '../components/GravelCalculator';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { Package, Scale, Truck, ChevronDown } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const gravelCalculatorSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Gravel Calculator',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  url: Astro.url.toString(),
+  description: 'Calculate gravel cubic yards, tons, bags, coverage, and cost for driveways, paths, patios, and landscaping projects.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+
+const gravelFaqItems = [
+  {
+    q: t('gravel.faq.q1'),
+    a: t('gravel.faq.a1'),
+  },
+  {
+    q: t('gravel.faq.q2'),
+    a: t('gravel.faq.a2'),
+  },
+  {
+    q: t('gravel.faq.q3'),
+    a: t('gravel.faq.a3'),
+  },
+  {
+    q: t('gravel.faq.q4'),
+    a: t('gravel.faq.a4'),
+  },
+  {
+    q: t('gravel.faq.q5'),
+    a: t('gravel.faq.a5'),
+  },
+  {
+    q: t('gravel.faq.q6'),
+    a: t('gravel.faq.a6'),
+  },
+];
+
+const gravelFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: gravelFaqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+
+const homePath = lang === 'en' ? '/' : `/${lang}/`;
+---
+
+<Layout
+  title={t('gravel.seo.title')}
+  description={t('gravel.seo.description')}
+  keywords={t('gravel.seo.keywords')}
+>
+  <Nav lang={lang} />
+
+  <main>
+    <section id="calculator" class="relative overflow-hidden bg-canvas px-4 sm:px-6 py-14 sm:py-20 border-b border-hairline">
+      <div class="absolute inset-x-0 top-0 h-[420px] mesh-gradient opacity-35 pointer-events-none"></div>
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-hairline-strong to-transparent"></div>
+      <div class="relative max-w-6xl mx-auto space-y-12">
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          <div class="inline-flex items-center gap-2 rounded-full border border-hairline-strong bg-canvas/80 px-4 py-2 shadow-sm backdrop-blur">
+            <span class="h-2 w-2 rounded-full bg-cyan-deep"></span>
+            <p class="caption-mono text-mute">GRAVEL CALCULATOR</p>
+          </div>
+          <h1 class="display-xl text-ink max-w-3xl mx-auto">{t('gravel.hero.title')}</h1>
+          <p class="body-lg text-body max-w-2xl mx-auto">
+            {t('gravel.hero.description')}
+          </p>
+          <div class="flex flex-wrap justify-center gap-3 pt-2">
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Cubic yards</span>
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Tons</span>
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Bags</span>
+            <span class="caption-mono rounded-full border border-hairline bg-canvas-soft px-3 py-1 text-mute">Driveways</span>
+          </div>
+        </div>
+
+        <GravelCalculator client:load />
+      </div>
+    </section>
+
+    <section class="bg-canvas-soft px-4 sm:px-6 py-16 sm:py-20 border-b border-hairline">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <article class="classical-card rounded-lg p-6 sm:p-7 space-y-4">
+          <div class="w-10 h-10 rounded-sm bg-cyan-soft border border-cyan-deep/20 flex items-center justify-center">
+            <Truck className="w-5 h-5 text-cyan-deep" />
+          </div>
+          <h2 class="display-sm text-ink">{t('gravel.feature1Title')}</h2>
+          <p class="body-sm text-body">{t('gravel.feature1Text')}</p>
+        </article>
+
+        <article class="classical-card rounded-lg p-6 sm:p-7 space-y-4">
+          <div class="w-10 h-10 rounded-sm bg-violet-soft border border-violet-deep/20 flex items-center justify-center">
+            <Scale className="w-5 h-5 text-violet-deep" />
+          </div>
+          <h2 class="display-sm text-ink">{t('gravel.feature2Title')}</h2>
+          <p class="body-sm text-body">{t('gravel.feature2Text')}</p>
+        </article>
+
+        <article class="classical-card rounded-lg p-6 sm:p-7 space-y-4">
+          <div class="w-10 h-10 rounded-sm bg-warning-soft border border-warning-deep/20 flex items-center justify-center">
+            <Package className="w-5 h-5 text-warning-deep" />
+          </div>
+          <h2 class="display-sm text-ink">{t('gravel.feature3Title')}</h2>
+          <p class="body-sm text-body">{t('gravel.feature3Text')}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-canvas border-b border-hairline px-4 sm:px-6 py-12">
+      <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 rounded-lg border border-hairline bg-canvas-soft p-6">
+        <p class="body-md text-body">{t('gravel.crossref.text')}</p>
+        <a href={homePath} class="inline-flex items-center justify-center classical-button h-10 px-5 shrink-0">
+          {t('gravel.crossref.cta')}
+        </a>
+      </div>
+    </section>
+
+    <section class="bg-canvas px-6 py-20">
+      <div class="max-w-3xl mx-auto prose prose-neutral max-w-none
+        prose-headings:font-geist prose-headings:font-semibold prose-headings:tracking-tighter
+        prose-h2:text-display-md prose-h2:text-ink
+        prose-h3:text-display-sm prose-h3:text-ink
+        prose-p:text-body-md prose-p:text-body prose-p:leading-relaxed
+        prose-li:text-body-sm prose-li:text-body
+        prose-strong:text-ink">
+        <h2>{t('gravel.seo.h2_1')}</h2>
+        <p set:html={t('gravel.seo.p1')} />
+        <p set:html={t('gravel.seo.p2')} />
+
+        <h2>{t('gravel.seo.h2_2')}</h2>
+        <p set:html={t('gravel.seo.p3')} />
+        <p set:html={t('gravel.seo.p4')} />
+
+        <h2>{t('gravel.seo.h2_3')}</h2>
+        <p set:html={t('gravel.seo.p5')} />
+        <p set:html={t('gravel.seo.p6')} />
+
+        <h2>{t('gravel.seo.h2_4')}</h2>
+        <p set:html={t('gravel.seo.p7')} />
+        <p set:html={t('gravel.seo.p8')} />
+        <p set:html={t('gravel.seo.p9')} />
+      </div>
+    </section>
+
+    <section id="gravel-faq" class="bg-canvas-soft py-24 border-t border-hairline px-6">
+      <div class="max-w-3xl mx-auto space-y-12">
+        <div class="text-center space-y-4">
+          <h2 class="display-md text-ink">{t('gravel.faq.title')}</h2>
+          <div class="w-12 h-1 bg-primary mx-auto rounded-full"></div>
+        </div>
+
+        <div class="space-y-4">
+          {gravelFaqItems.map((item) => (
+            <div class="gravel-faq-item group border border-hairline rounded-xl overflow-hidden bg-canvas hover:border-mute transition-all duration-300 shadow-sm hover:shadow-md">
+              <button
+                class="gravel-faq-button w-full px-6 py-5 text-left flex justify-between items-center bg-canvas hover:bg-canvas-soft transition-colors"
+                aria-expanded="false"
+              >
+                <span class="body-md-strong text-ink pr-4">{item.q}</span>
+                <ChevronDown className="w-5 h-5 text-mute group-hover:text-primary transition-transform duration-300 shrink-0" />
+              </button>
+              <div class="gravel-faq-answer hidden px-6 py-5 border-t border-hairline bg-canvas-soft/30">
+                <div class="body-sm text-body leading-relaxed prose-ul:list-disc prose-ul:pl-5 prose-li:my-1" set:html={item.a} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(gravelCalculatorSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(gravelFaqSchema)} />
+
+  <script>
+    function setupGravelFaq() {
+      const items = document.querySelectorAll('.gravel-faq-item');
+
+      items.forEach((item) => {
+        const button = item.querySelector('.gravel-faq-button');
+        const answer = item.querySelector('.gravel-faq-answer');
+        const icon = item.querySelector('svg');
+
+        button?.addEventListener('click', () => {
+          const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+          items.forEach((otherItem) => {
+            if (otherItem !== item) {
+              const otherButton = otherItem.querySelector('.gravel-faq-button');
+              const otherAnswer = otherItem.querySelector('.gravel-faq-answer');
+              const otherIcon = otherItem.querySelector('svg');
+
+              otherButton?.setAttribute('aria-expanded', 'false');
+              otherAnswer?.classList.add('hidden');
+              otherIcon?.classList.remove('rotate-180');
+            }
+          });
+
+          button.setAttribute('aria-expanded', String(!isOpen));
+          answer?.classList.toggle('hidden');
+          icon?.classList.toggle('rotate-180');
+        });
+      });
+    }
+
+    setupGravelFaq();
+    document.addEventListener('astro:after-swap', setupGravelFaq);
+  </script>
+
+  <Footer lang={lang} />
+</Layout>
