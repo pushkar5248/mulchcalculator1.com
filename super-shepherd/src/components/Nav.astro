@@ -18,14 +18,14 @@ const isGravelActive = cleanPathname === '/gravel-calculator' || cleanPathname =
 const homePath = lang === 'en' ? '/' : `/${lang}/`;
 ---
 
-<nav class="sticky top-0 z-40 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline px-6">
+<nav class="sticky top-0 z-40 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline px-4 md:px-6">
   <div class="h-[64px] flex items-center justify-between">
     <div class="flex items-center gap-8 h-full">
       <a href="/" class="flex items-center gap-2">
         <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
           <span class="text-on-primary font-bold text-xl leading-none">M</span>
         </div>
-        <span class="body-md-strong tracking-tighter font-semibold">mulchcalculator1.com</span>
+        <span class="body-md-strong tracking-tighter font-semibold hidden md:inline">mulchcalculator1.com</span>
       </a>
       
       <!-- Desktop Navigation Links -->
