@@ -7,15 +7,17 @@ const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 
 // Get current pathname
-const pathname = Astro.url.pathname;
-// Normalize paths (strip trailing slash except for root)
-const cleanPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+// Normalize paths (strip .html and trailing slash, except for root)
+let cleanPathname = Astro.url.pathname.replace(/\.html$/, '');
+if (cleanPathname.endsWith('/index')) cleanPathname = cleanPathname.slice(0, -6) || '/';
+cleanPathname = cleanPathname.length > 1 ? cleanPathname.replace(/\/$/, '') : cleanPathname;
 
 // Determine if on specific routes
 const isMulchActive = cleanPathname === '/' || cleanPathname === `/${lang}` || cleanPathname === `/${lang}/`;
 const isGravelActive = cleanPathname === '/gravel-calculator' || cleanPathname === `/${lang}/gravel-calculator`;
 
-const homePath = lang === 'en' ? '/' : `/${lang}/`;
+const homePath = lang === 'en' ? '/' : `/${lang}`;
+const localize = (p) => (lang === 'en' ? '' : `/${lang}`) + p;
 ---
 
 <nav class="sticky top-0 z-40 w-full bg-canvas/80 backdrop-blur-md border-b border-hairline px-4 md:px-6">
@@ -57,7 +59,7 @@ const homePath = lang === 'en' ? '/' : `/${lang}/`;
           {t('nav.faq')}
         </a>
         <a 
-          href={`${homePath}about-us`} 
+          href={localize('/about-us')} 
           class="text-sm text-mute hover:text-ink transition-colors flex items-center h-full border-b-2 border-transparent"
         >
           {t('nav.about')}
@@ -112,13 +114,13 @@ const homePath = lang === 'en' ? '/' : `/${lang}/`;
       {t('nav.faq')}
     </a>
     <a 
-      href={`${homePath}about-us`} 
+      href={localize('/about-us')} 
       class="block px-3 py-2 rounded-md text-sm text-mute hover:text-ink hover:bg-canvas-soft transition-colors"
     >
       {t('nav.about')}
     </a>
     <a 
-      href={`${homePath}contact-us`} 
+      href={localize('/contact-us')} 
       class="block px-3 py-2 rounded-md text-sm text-mute hover:text-ink hover:bg-canvas-soft transition-colors"
     >
       {t('nav.contact')}

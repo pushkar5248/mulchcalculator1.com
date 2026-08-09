@@ -23,7 +23,10 @@ const lang = getLangFromUrl(Astro.url);
   >
     {Object.entries(languages).map(([id, label]) => {
       const url = new URL(Astro.url);
-      const segments = url.pathname.split('/').filter(Boolean);
+      let pathname = url.pathname.replace(/\.html$/, '');
+      if (pathname.endsWith('/index')) pathname = pathname.slice(0, -6) || '/';
+      if (pathname.endsWith('/') && pathname !== '/') pathname = pathname.slice(0, -1);
+      const segments = pathname.split('/').filter(Boolean);
       
       // If the first segment is a language code, remove it
       if (segments.length > 0 && segments[0] in languages) {

@@ -8,9 +8,13 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.mulchcalculator1.com',
+  trailingSlash: 'never',
   integrations: [react(), sitemap()],
   output: 'static',
   adapter: cloudflare(),
+  build: {
+    format: 'file',
+  },
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es", "fr", "hi", "ru", "it", "de"],
